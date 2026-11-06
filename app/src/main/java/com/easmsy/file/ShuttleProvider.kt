@@ -97,13 +97,11 @@ class ShuttleProvider : ContentProvider() {
         resolver?.insert(targetUri(uri), values)?.let(::proxyUri)
     }
 
-    override fun bulkInsert(uri: Uri, values: Array<out ContentValues>): Int = forward {
-        resolver?.bulkInsert(targetUri(uri), values) ?: 0
-    }
+    override fun bulkInsert(uri: Uri, values: Array<out ContentValues>): Int =
+        forward { resolver?.bulkInsert(targetUri(uri), values) } ?: 0
 
-    override fun delete(uri: Uri, selection: String?, selectionArgs: Array<out String>?): Int = forward {
-        resolver?.delete(targetUri(uri), selection, selectionArgs) ?: 0
-    }
+    override fun delete(uri: Uri, selection: String?, selectionArgs: Array<out String>?): Int =
+        forward { resolver?.delete(targetUri(uri), selection, selectionArgs) } ?: 0
 
     override fun update(
         uri: Uri,
@@ -111,8 +109,8 @@ class ShuttleProvider : ContentProvider() {
         selection: String?,
         selectionArgs: Array<out String>?
     ): Int = forward {
-        resolver?.update(targetUri(uri), values, selection, selectionArgs) ?: 0
-    }
+        resolver?.update(targetUri(uri), values, selection, selectionArgs)
+    } ?: 0
 
     override fun openFile(uri: Uri, mode: String): ParcelFileDescriptor? = forwardFd {
         resolver?.openFileDescriptor(targetUri(uri), mode)
