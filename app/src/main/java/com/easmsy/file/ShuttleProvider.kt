@@ -97,7 +97,7 @@ class ShuttleProvider : ContentProvider() {
         resolver?.insert(targetUri(uri), values)?.let(::proxyUri)
     }
 
-    override fun bulkInsert(uri: Uri, values: Array<out ContentValues>?): Int = forward {
+    override fun bulkInsert(uri: Uri, values: Array<out ContentValues>): Int = forward {
         resolver?.bulkInsert(targetUri(uri), values) ?: 0
     }
 

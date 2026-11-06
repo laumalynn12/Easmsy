@@ -122,11 +122,11 @@ class ExternalStorageProviderProxy : ContentProvider() {
     override fun insert(uri: Uri, values: ContentValues?): Uri? =
         runCatching { delegate?.insert(targetUri(uri), values)?.let(::proxyUri) }.getOrNull()
 
-    override fun bulkInsert(uri: Uri, values: Array<out ContentValues>?): Int =
-        runCatching { delegate?.bulkInsert(targetUri(uri), values) }.getOrDefault(0)
+    override fun bulkInsert(uri: Uri, values: Array<out ContentValues>): Int =
+        runCatching { delegate?.bulkInsert(targetUri(uri), values) }.getOrNull() ?: 0
 
     override fun delete(uri: Uri, selection: String?, selectionArgs: Array<out String>?): Int =
-        runCatching { delegate?.delete(targetUri(uri), selection, selectionArgs) }.getOrDefault(0)
+        runCatching { delegate?.delete(targetUri(uri), selection, selectionArgs) }.getOrNull() ?: 0
 
     override fun update(
         uri: Uri,
@@ -134,7 +134,7 @@ class ExternalStorageProviderProxy : ContentProvider() {
         selection: String?,
         selectionArgs: Array<out String>?
     ): Int = runCatching { delegate?.update(targetUri(uri), values, selection, selectionArgs) }
-        .getOrDefault(0)
+        .getOrNull() ?: 0
 
     override fun openFile(uri: Uri, mode: String): ParcelFileDescriptor? =
         runCatching { delegate?.openFile(targetUri(uri), mode) }.getOrNull()

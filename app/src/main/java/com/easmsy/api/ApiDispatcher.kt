@@ -69,7 +69,7 @@ object ApiDispatcher {
             callerUid = caller.creatorUid
             if (packageName == null) return "No creator information in PendingIntent"
         }
-        if (callerUid > 0 && UserHandle.isSameApp(callerUid, Process.myUid())) return null
+        if (callerUid > 0 && callerUid == Process.myUid()) return null
 
         val permissions = permissionsForAction(intent.action)
         if (callerUid >= 0 && permissions.any {

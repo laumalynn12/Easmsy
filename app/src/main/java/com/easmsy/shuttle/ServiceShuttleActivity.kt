@@ -91,7 +91,7 @@ class ServiceShuttleActivity : Activity() {
             }
         }
 
-        override fun onServiceFailed() {
+        fun onServiceFailed() {
             try {
                 remote.onServiceFailed()
             } catch (_: RemoteException) {
