@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/margin_medium"
+    android:layout_marginEnd="@dimen/margin_medium"
+    android:layout_marginTop="@dimen/margin_small"
+    android:elevation="@dimen/elevation_card_resting"
+    app:cardBackgroundColor="@color/card_background"
+    app:contentPadding="@dimen/card_content_padding">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/featured_icon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="16dp"
+            tools:src="@drawable/ic_launcher_greenify" />
+
+        <TextView
+            android:id="@+id/featured_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:layout_margin="@dimen/margin_small"
+            android:layout_toStartOf="@id/featured_icon"
+            android:textAppearance="@android:style/TextAppearance.Material.Title"
+            android:textSize="18sp"
+            tools:text="@string/featured_greenify_title" />
+
+        <TextView
+            android:id="@+id/featured_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/featured_title"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="@dimen/margin_small"
+            android:layout_marginTop="12sp"
+            android:layout_marginEnd="@dimen/margin_small"
+            android:layout_toStartOf="@id/featured_icon"
+            android:textAppearance="@android:style/TextAppearance.Material.Body1"
+            android:textSize="14sp"
+            tools:text="@string/featured_greenify_description" />
+
+        <Button
+            android:id="@+id/featured_button"
+            style="@android:style/Widget.Material.Button.Borderless.Colored"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/featured_description"
+            android:layout_alignParentEnd="true"
+            android:layout_marginBottom="-6dp"
+            tools:text="Install" />
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

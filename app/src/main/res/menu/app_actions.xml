@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/menu_freeze"
+        android:icon="@drawable/ic_lock_24dp"
+        android:title="@string/action_freeze"
+        app:showAsAction="ifRoom|withText" />
+    <item
+        android:id="@+id/menu_unfreeze"
+        android:icon="@drawable/ic_unlock_24dp"
+        android:title="@string/action_unfreeze"
+        app:showAsAction="ifRoom|withText" />
+    <item
+        android:id="@+id/menu_clone"
+        android:icon="@drawable/ic_add_to_photos_24dp"
+        android:title="@string/action_clone"
+        app:showAsAction="ifRoom|withText" />
+    <item
+        android:id="@+id/menu_suspend"
+        android:title="Suspend"
+        android:visible="false"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/menu_app_settings"
+        android:icon="@drawable/ic_settings_applications_white_24dp"
+        android:title="@string/action_app_settings"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/menu_greenify"
+        android:title="@string/action_greenify"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/menu_shortcut"
+        android:title="@string/action_shortcut"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/menu_remove"
+        android:title="@string/action_remove"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/menu_uninstall"
+        android:title="@string/action_uninstall"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/menu_reinstall"
+        android:title="@string/action_reinstall"
+        app:showAsAction="ifRoom" />
+</menu>

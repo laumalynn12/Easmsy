@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="primary">#303F9F</color>
+    <color name="primary_dark">#1A237E</color>
+    <color name="accent">#c67100</color>
+    <color name="action_icon">@android:color/white</color>
+    <color name="textPrimary">#5C6BC0</color>
+    <color name="background">#121212</color>
+    <color name="header_background">#121212</color>
+    <color name="background_highlight">#2C2C2C</color>
+    <color name="card_background">#2C2C2C</color>
+    <color name="card_attention">#635732</color>
+    <color name="card_button">#259B24</color>
+    <color name="state_alive">#DD6F00</color>
+    <color name="state_frozen">#536dfe</color>
+    <color name="state_other">@android:color/darker_gray</color>
+    <color name="side_control">#536dfe</color>
+</resources>

@@ -1,0 +1,5 @@
+-keepattributes Signature
+-keep class com.easmsy.core.Reflection { *; }
+-keep class * extends android.content.ContentProvider { *; }
+-keep class * extends android.app.admin.DeviceAdminReceiver { *; }
+-keepclassmembers class * { @androidx.annotation.Keep <methods>; }

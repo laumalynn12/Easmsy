@@ -1,0 +1,413 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-feature android:name="android.software.device_admin" android:required="true" />
+    <uses-feature android:name="android.software.managed_users" android:required="true" />
+
+    <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS" tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+    <uses-permission android:name="android.permission.REQUEST_DELETE_PACKAGES" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.WRITE_SECURE_SETTINGS" tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="android.permission.PACKAGE_USAGE_STATS" tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
+    <uses-permission android:name="com.android.launcher.permission.UNINSTALL_SHORTCUT" />
+    <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES" tools:ignore="QueryAllPackagesPermission" />
+
+    <permission-group
+        android:name="com.easmsy.permission-group.PACKAGE_ACCESS"
+        android:icon="@drawable/ic_landscape_black_24dp"
+        android:label="@string/permission_group_control_island_apps_label"
+        android:description="@string/permission_group_control_island_apps_description" />
+    <permission
+        android:name="com.easmsy.permission.FREEZE_PACKAGE"
+        android:description="@string/permission_freeze_app_description"
+        android:label="@string/permission_freeze_app_label"
+        android:permissionGroup="com.easmsy.permission-group.PACKAGE_ACCESS"
+        android:protectionLevel="dangerous" />
+    <permission
+        android:name="com.easmsy.permission.LAUNCH_PACKAGE"
+        android:description="@string/permission_launch_app_description"
+        android:label="@string/permission_launch_app_label"
+        android:permissionGroup="com.easmsy.permission-group.PACKAGE_ACCESS"
+        android:protectionLevel="dangerous" />
+    <permission
+        android:name="com.easmsy.permission.SUSPEND_PACKAGE"
+        android:description="@string/permission_suspend_app_description"
+        android:label="@string/permission_suspend_app_label"
+        android:permissionGroup="com.easmsy.permission-group.PACKAGE_ACCESS"
+        android:protectionLevel="dangerous" />
+
+    <application
+        android:name=".EasmsyApplication"
+        android:allowBackup="false"
+        android:icon="@mipmap/ic_launcher"
+        android:label="Easmsy"
+        android:requestLegacyExternalStorage="true"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme.NoActionBar"
+        tools:ignore="AllowBackup,GoogleAppIndexingWarning">
+
+        <meta-data android:name="android.max_aspect" android:value="2.1" />
+
+        <activity
+            android:name=".MainActivity"
+            android:windowSoftInputMode="adjustPan">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            <intent-filter android:priority="-1">
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="com.oasisfeng.island.category.PARENT_PROFILE" />
+                <category android:name="com.easmsy.category.PARENT_PROFILE" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            <meta-data android:name="android.app.searchable" android:resource="@xml/searchable" />
+        </activity>
+
+        <activity
+            android:name=".shortcut.ShortcutLauncher"
+            android:clearTaskOnLaunch="true"
+            android:excludeFromRecents="true"
+            android:hardwareAccelerated="false"
+            android:launchMode="singleTask"
+            android:resumeWhilePausing="true"
+            android:taskAffinity=":shortcut"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar">
+            <intent-filter>
+                <action android:name="com.oasisfeng.island.action.LAUNCH_APP" />
+                <action android:name="com.easmsy.action.LAUNCH_APP" />
+                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:scheme="package" />
+                <data android:scheme="android-app" />
+                <data android:scheme="app" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".setup.SetupActivity" android:theme="@style/SetupTheme" />
+
+        <activity
+            android:name=".settings.SettingsActivity"
+            android:label="@string/settings_title"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.Settings" />
+
+        <activity
+            android:name=".settings.IslandSettingsActivity"
+            android:directBootAware="true"
+            android:enabled="false"
+            android:label="@string/label_activity_island_settings"
+            android:theme="@style/AppTheme.Settings">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="com.oasisfeng.island.category.MANAGED_PROFILE" />
+                <category android:name="com.easmsy.category.MANAGED_PROFILE" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".api.ApiActivity"
+            android:alwaysRetainTaskState="true"
+            android:excludeFromRecents="true"
+            android:exported="true"
+            android:hardwareAccelerated="false"
+            android:resumeWhilePausing="true"
+            android:taskAffinity=":api"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar">
+            <intent-filter>
+                <action android:name="com.oasisfeng.island.action.FREEZE" />
+                <action android:name="com.oasisfeng.island.action.UNFREEZE" />
+                <action android:name="com.oasisfeng.island.action.LAUNCH" />
+                <action android:name="com.oasisfeng.island.action.SUSPEND" />
+                <action android:name="com.oasisfeng.island.action.UNSUSPEND" />
+                <action android:name="com.easmsy.action.FREEZE" />
+                <action android:name="com.easmsy.action.UNFREEZE" />
+                <action android:name="com.easmsy.action.LAUNCH" />
+                <action android:name="com.easmsy.action.SUSPEND" />
+                <action android:name="com.easmsy.action.UNSUSPEND" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:scheme="package" />
+                <data android:scheme="packages" />
+            </intent-filter>
+        </activity>
+
+        <receiver
+            android:name=".api.ApiReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.oasisfeng.island.action.FREEZE" />
+                <action android:name="com.oasisfeng.island.action.UNFREEZE" />
+                <action android:name="com.oasisfeng.island.action.LAUNCH" />
+                <action android:name="com.oasisfeng.island.action.SUSPEND" />
+                <action android:name="com.oasisfeng.island.action.UNSUSPEND" />
+                <action android:name="com.easmsy.action.FREEZE" />
+                <action android:name="com.easmsy.action.UNFREEZE" />
+                <action android:name="com.easmsy.action.LAUNCH" />
+                <action android:name="com.easmsy.action.SUSPEND" />
+                <action android:name="com.easmsy.action.UNSUSPEND" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:scheme="package" />
+                <data android:scheme="packages" />
+            </intent-filter>
+        </receiver>
+
+        <activity
+            android:name=".shuttle.ServiceShuttleActivity"
+            android:excludeFromRecents="true"
+            android:exported="false"
+            android:hardwareAccelerated="false"
+            android:resumeWhilePausing="true"
+            android:taskAffinity=":shuttle"
+            android:theme="@android:style/Theme.NoDisplay">
+            <intent-filter>
+                <action android:name="com.oasisfeng.island.action.BIND_SERVICE" />
+                <action android:name="com.easmsy.action.BIND_SERVICE" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <service
+            android:name=".service.PersistentService"
+            android:permission="android.permission.BIND_DEVICE_ADMIN">
+            <intent-filter>
+                <action android:name="android.app.action.DEVICE_ADMIN_SERVICE" />
+            </intent-filter>
+        </service>
+
+        <service
+            android:name=".provision.ProvisioningService"
+            android:directBootAware="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.app.action.PROVISION_MANAGED_PROFILE" />
+                <action android:name="android.app.action.PROVISION_MANAGED_DEVICE" />
+            </intent-filter>
+        </service>
+
+        <activity
+            android:name=".provision.ProvisioningCompleteActivity"
+            android:directBootAware="true"
+            android:excludeFromRecents="true"
+            android:exported="true"
+            android:permission="android.permission.BIND_DEVICE_ADMIN"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar">
+            <intent-filter>
+                <action android:name="android.app.action.PROVISIONING_SUCCESSFUL" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <receiver
+            android:name=".provision.AdminReceiver"
+            android:exported="true"
+            android:permission="android.permission.BIND_DEVICE_ADMIN">
+            <meta-data android:name="android.app.device_admin" android:resource="@xml/device_admin" />
+            <intent-filter>
+                <action android:name="android.app.action.DEVICE_ADMIN_ENABLED" />
+                <action android:name="android.app.action.PROFILE_PROVISIONING_COMPLETE" />
+            </intent-filter>
+        </receiver>
+
+        <receiver
+            android:name=".provision.ManualProvisioningReceiver"
+            android:directBootAware="true"
+            android:exported="false">
+            <intent-filter android:priority="9999">
+                <action android:name="android.intent.action.USER_INITIALIZE" />
+                <action android:name="android.app.action.DEVICE_OWNER_CHANGED" />
+            </intent-filter>
+        </receiver>
+
+        <receiver
+            android:name=".provision.AppUpdateReceiver"
+            android:directBootAware="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+            </intent-filter>
+        </receiver>
+
+        <receiver
+            android:name=".settings.IslandSettingsEnabler"
+            android:directBootAware="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.USER_INITIALIZE" />
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+            </intent-filter>
+        </receiver>
+
+        <receiver
+            android:name=".settings.IslandNameInitializer"
+            android:directBootAware="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.USER_INITIALIZE" />
+            </intent-filter>
+        </receiver>
+
+        <receiver
+            android:name=".adb.ProfileRestrictionsSync"
+            android:directBootAware="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.LOCKED_BOOT_COMPLETED" />
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+        <provider
+            android:name=".data.AppListProvider"
+            android:authorities="${applicationId}.apps"
+            android:exported="false"
+            android:multiprocess="true" />
+
+        <provider
+            android:name=".file.ShuttleProvider"
+            android:authorities="${applicationId}.files.shuttle"
+            android:enabled="false"
+            android:exported="true"
+            android:grantUriPermissions="true"
+            android:permission="android.permission.MANAGE_DOCUMENTS"
+            android:process=":file_shuttle">
+            <intent-filter>
+                <action android:name="android.content.action.DOCUMENTS_PROVIDER" />
+            </intent-filter>
+        </provider>
+
+        <provider
+            android:name=".file.ExternalStorageProviderProxy"
+            android:authorities="${applicationId}.files"
+            android:exported="false"
+            android:process=":file" />
+
+        <activity
+            android:name=".installer.InstallerActivity"
+            android:configChanges="uiMode|orientation|screenSize|keyboard|keyboardHidden"
+            android:excludeFromRecents="true"
+            android:exported="true"
+            android:label="@string/app_installer_label"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <action android:name="android.intent.action.INSTALL_PACKAGE" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:scheme="file" />
+                <data android:scheme="content" />
+                <data android:mimeType="application/vnd.android.package-archive" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.INSTALL_PACKAGE" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:scheme="file" />
+                <data android:scheme="package" />
+                <data android:scheme="content" />
+            </intent-filter>
+        </activity>
+
+        <receiver
+            android:name=".installer.InstallResultReceiver"
+            android:exported="false" />
+
+        <activity
+            android:name=".installer.AppInfoForwarderActivity"
+            android:excludeFromRecents="true"
+            android:exported="true"
+            android:relinquishTaskIdentity="true"
+            android:taskAffinity=""
+            android:theme="@android:style/Theme.Translucent.NoTitleBar">
+            <intent-filter>
+                <action android:name="android.intent.action.SHOW_APP_INFO" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <receiver
+            android:name=".watcher.IslandWatcher"
+            android:directBootAware="true"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.LOCKED_BOOT_COMPLETED" />
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+                <action android:name="android.app.action.NOTIFICATION_CHANNEL_BLOCK_STATE_CHANGED" />
+                <action android:name="android.app.action.APP_BLOCK_STATE_CHANGED" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name=".watcher.IslandDeactivationService"
+            android:directBootAware="true"
+            android:exported="false" />
+
+        <activity
+            android:name=".watcher.DummyHomeActivity"
+            android:directBootAware="true"
+            android:enabled="false"
+            android:exported="true"
+            android:hardwareAccelerated="false"
+            android:theme="@android:style/Theme.NoDisplay">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.HOME" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <receiver
+            android:name=".watcher.IslandAppWatcher"
+            android:directBootAware="true"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_FULLY_REMOVED" />
+                <data android:scheme="package" />
+            </intent-filter>
+        </receiver>
+
+        <provider
+            android:name=".watcher.AppStateTracker"
+            android:authorities="${applicationId}.watcher"
+            android:directBootAware="true"
+            android:enabled="true"
+            android:exported="false" />
+
+        <service
+            android:name=".shortcut.ShortcutSyncService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.oasisfeng.island.PersistentService" />
+                <action android:name="com.easmsy.PersistentService" />
+            </intent-filter>
+        </service>
+
+        <receiver
+            android:name=".shortcut.ShortcutsUpdater"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+    </application>
+
+</manifest>

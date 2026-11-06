@@ -1,0 +1,22 @@
+Easmsy
+Copyright 2026 The Easmsy contributors
+
+This product is a from-scratch reimplementation of the Island and Deagle projects.
+
+Original projects:
+  Island
+  Copyright Oasis Feng and contributors
+  https://github.com/oasisfeng/island
+  Licensed under the Apache License, Version 2.0.
+
+  Deagle
+  Copyright Oasis Feng and contributors
+  https://github.com/oasisfeng/deagle
+  Licensed under the Apache License, Version 2.0.
+
+The user-visible resources (layouts, drawables, colours and strings) were reconstructed
+or adapted from Island under the terms of the Apache License, Version 2.0. The Kotlin
+implementation is new code and does not copy the original Java/Kotlin source files.
+
+AndroidX, Material Components and other Gradle dependencies are distributed under their
+respective licences; see their Maven metadata and project pages.

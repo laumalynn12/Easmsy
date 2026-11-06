@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<preference-headers xmlns:android="http://schemas.android.com/apk/res/android">
+    <header
+        android:fragment="com.easmsy.settings.GeneralFragment"
+        android:icon="@drawable/ic_settings_black_24dp"
+        android:title="@string/pref_general_header" />
+    <header
+        android:id="@+id/pref_header_island"
+        android:fragment="com.easmsy.settings.IslandSettingsFragment"
+        android:icon="@drawable/ic_landscape_black_24dp"
+        android:title="@string/pref_scoped_settings_header"
+        android:breadCrumbTitle="@string/tab_mainland" />
+    <header
+        android:fragment="com.easmsy.settings.AboutFragment"
+        android:icon="@drawable/ic_info_black_24dp"
+        android:title="@string/pref_about_header" />
+</preference-headers>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <Preference android:key="@string/key_version" android:title="@string/pref_about_version_title" />
+    <Preference android:title="@string/pref_about_open_source_title" android:summary="@string/pref_about_open_source_summary">
+        <intent android:action="android.intent.action.VIEW" android:data="https://github.com/oasisfeng/island" />
+    </Preference>
+    <PreferenceScreen android:title="@string/pref_about_licenses_title">
+        <PreferenceCategory android:title="@string/pref_about_licenses_title">
+            <PreferenceScreen android:title="Android Open Source Project" android:summary="Apache License, Version 2.0">
+                <intent android:action="android.intent.action.VIEW" android:data="https://source.android.com/" />
+            </PreferenceScreen>
+            <PreferenceScreen android:title="Island (original project)" android:summary="Apache License, Version 2.0">
+                <intent android:action="android.intent.action.VIEW" android:data="https://github.com/oasisfeng/island" />
+            </PreferenceScreen>
+            <PreferenceScreen android:title="Deagle Library" android:summary="Apache License, Version 2.0">
+                <intent android:action="android.intent.action.VIEW" android:data="https://github.com/oasisfeng/deagle" />
+            </PreferenceScreen>
+        </PreferenceCategory>
+    </PreferenceScreen>
+</PreferenceScreen>

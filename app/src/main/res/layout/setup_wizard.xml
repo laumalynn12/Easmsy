@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@android:color/white">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/setup_header_height"
+        android:background="@drawable/setup_header">
+
+        <TextView
+            android:id="@+id/setup_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|start"
+            android:paddingStart="@dimen/content_padding_start_end"
+            android:paddingEnd="@dimen/content_padding_start_end"
+            android:paddingBottom="24dp"
+            android:text="@string/setup_profile_welcome"
+            android:textColor="@android:color/white"
+            android:textSize="34sp" />
+
+    </FrameLayout>
+
+    <ScrollView
+        android:id="@+id/setup_scroll"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/intro"
+                style="@style/contentContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/setup_island_intro"
+                tools:visibility="visible" />
+
+            <LinearLayout
+                android:id="@+id/error_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingStart="@dimen/content_padding_start_end"
+                android:paddingEnd="@dimen/content_padding_start_end"
+                android:paddingTop="@dimen/content_padding_top"
+                android:paddingBottom="@dimen/content_padding_bottom"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/error_text"
+                    style="@style/containerText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/manual_setup_hint"
+                    style="@style/containerText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="16sp"
+                    android:text="@string/dialog_manual_setup"
+                    android:visibility="gone" />
+
+                <Button
+                    android:id="@+id/extra_button"
+                    style="@style/AppTheme.BorderlessActionButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="16sp"
+                    android:visibility="gone" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="@android:color/white"
+        android:paddingStart="@dimen/margin_small"
+        android:paddingEnd="@dimen/margin_small"
+        android:paddingTop="@dimen/margin_small"
+        android:paddingBottom="@dimen/margin_small"
+        android:elevation="8dp">
+
+        <Button
+            android:id="@+id/back_button"
+            style="@style/AppTheme.BorderlessActionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@android:string/cancel"
+            android:visibility="gone" />
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1" />
+
+        <Button
+            android:id="@+id/next_button"
+            style="@style/AppTheme.BorderlessActionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="end|center_vertical"
+            android:text="@string/setup_accept" />
+
+    </LinearLayout>
+
+</LinearLayout>
